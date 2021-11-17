@@ -4,10 +4,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
+const cn = "postgres://postgres:postgres@host:5432/pt_project";
 const app = (0, express_1.default)();
 const port = 4000;
-app.post("/", (req, res) => {
-    res.send("Hello World!");
+const corsOptions = {
+    origin: "http://localhost:3000",
+};
+app.use((0, cors_1.default)(corsOptions));
+app.use(express_1.default.urlencoded({ extended: false }));
+app.post("/register", (req, res) => {
+    console.log(req.body.username);
+    res.send("Register request received!!@@@@@@@");
 });
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
